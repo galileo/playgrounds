@@ -1,0 +1,34 @@
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="app">
+    This is my application. What we can do here?
+    {{message}}
+</div>
+
+
+<div id="form">
+    {{name}}
+    <input type="text" v-model="name">
+
+
+
+</div>
+
+
+<div id="todos">
+    <span v-once>This will never change: {{ kamil }}</span>
+    <ol>
+        <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+        ></todo-item>
+    </ol>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
