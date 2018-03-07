@@ -1,0 +1,71 @@
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <style>
+        .row {
+            float: left;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column-reverse;
+            width: 40px;
+            height: 100px;
+            background-color: #eee;
+            margin-top: 20px;
+            transition: width 500ms;
+        }
+
+        .channel {
+            width: 40px;
+            height: 5px;
+            background-color: #eee;
+            transition: width 500ms;
+            margin-top: 115px;
+        }
+
+        .liquid {
+            display: flex;
+            flex-direction: column-reverse;
+            width: 40px;
+            height: 100px;
+            background-color: #fcff0d;
+            transition: width 500ms;
+        }
+
+        #app {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <section>
+        <button v-on:click="aLvl += 10">Add to A</button>
+        <button v-on:click="bLvl += 10">Add to B</button>
+    </section>
+    <section class="row">
+        <div class="container">
+            <div class="liquid"
+                 v-bind:style="{ height: aHeight}"
+            ></div>
+        </div>
+    </section>
+    <section class="row">
+        <div class="channel">
+            <div v-if="pipe" class="liquid" style="height: 100%;">
+            </div>
+        </div>
+    </section>
+    <section class="row">
+        <div class="container">
+            <div class="liquid"
+                 v-bind:style="{ height: bHeight}"
+            ></div>
+        </div>
+    </section>
+</div>
+<script src="js/liquid.js"></script>
+</body>
+</html>
