@@ -41,30 +41,26 @@
 </head>
 <body>
 <div id="app">
-    <section>
-        <button v-on:click="aLvl += 10">Add to A</button>
-        <button v-on:click="bLvl += 10">Add to B</button>
-    </section>
-    <section class="row">
-        <div class="container">
-            <div class="liquid"
-                 v-bind:style="{ height: aHeight}"
-            ></div>
-        </div>
-    </section>
-    <section class="row">
-        <div class="channel">
-            <div v-if="pipe" class="liquid" style="height: 100%;">
-            </div>
-        </div>
-    </section>
-    <section class="row">
-        <div class="container">
-            <div class="liquid"
-                 v-bind:style="{ height: bHeight}"
-            ></div>
-        </div>
-    </section>
+    <div>
+        <button v-on:click="addContainer">Add container</button>
+        <button v-on:click="removeContainer">Reomve container</button>
+    </div>
+    <water-container
+            v-for="(container, index) in containers"
+            v-bind:key="index"
+            v-bind:number="index"
+            v-bind:expected_water_level="averageWaterLevel"
+            v-bind:pipe="isNotLastContainer(index)"
+            v-on:fill="fillWater"
+
+    >
+    </water-container>
+    <button v-on:click="fillWater(20)"></button>
+
+    averages
+{{averageWaterLevel}}
+{{realAverageWaterLevel}}
+
 </div>
 <script src="js/liquid.js"></script>
 </body>
