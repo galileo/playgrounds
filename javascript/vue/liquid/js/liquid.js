@@ -1,73 +1,123 @@
+class Tank {
+  constructor () {
+    this.liquid = 0
+    this.name = '0'
+  }
+
+  pour (value = 1) {
+    const askedLiquidLevel = this.liquid + value
+
+    this.liquid = askedLiquidLevel > 100 ? 100 : askedLiquidLevel
+  }
+
+  effuse () {
+    this.liquid -= 1
+  }
+
+  setLiquidLevel (level) {
+    console.log('Forced level', level, this.name)
+    this.liquid = level > 100 ? 100 : level
+  }
+
+  fluidPercentage () {
+    return this.liquid
+  }
+}
+
+Vue.component('pipe', {
+  template: `<div>
+  Left: {{left}}
+  Right: {{right}}
+  Total: {{sum}}
+  
+  <button v-on:click="toggle">{{open ? 'Close' : 'Open'}}</button>
+  </div>
+`,
+  data: function () {
+    return {
+      open: true
+    }
+  },
+  props: ['left', 'right', 'set_left', 'set_right'],
+  computed: {
+    sum: function () {
+      return this.left + this.right
+    }
+  },
+  watch: {
+    left: function () {this.balance()},
+    right: function () {this.balance()},
+  },
+  methods: {
+    toggle: function () {
+      this.open = !this.open
+      this.balance()
+    },
+    balance: function () {
+      const { left, right } = this
+
+      const leftLiquidLevel = left
+      const rightLiquidLevel = right
+
+      console.info('Balancing started', leftLiquidLevel, rightLiquidLevel)
+
+      if (leftLiquidLevel === rightLiquidLevel) {
+        return console.info('Liquid level is equal')
+      }
+
+      if (!this.open) {
+        return console.warn('Pipe is closed we will not balance the liquid state')
+      }
+
+      const newLevel = Math.round(leftLiquidLevel + rightLiquidLevel / 2)
+      this.set_left(newLevel)
+      this.set_right(newLevel)
+    }
+  }
+})
+
 Vue.component('water-container', {
   template: `<div class="row">
     <section>
-      <button v-on:click="fillContainer">Fill</button>
+      <button v-on:click="fill">Fill</button>
     </section>
     <section class="row">
       <div class="container">
         <div class="liquid"
-             v-bind:style="{ height: localLevel}"
+             v-bind:style="heightStyle"
         >
-        {{localLevel}}%
-        </div>
-      </div>
-    </section>
-    <section class="row"
-             v-if="pipe"
-    >
-      <div class="channel">
-        <div v-if="localLevel" class="liquid" style="height: 100%;">
+        {{height}}%
         </div>
       </div>
     </section>
   </div>`,
-  props: ['index', 'expected_water_level', 'pipe'],
-  data: function (component) {
-    return {
-      localLevel: component.expected_water_level,
-      fillStep: 10,
-    }
-  },
-
-  watch: {
-    expected_water_level: function (val) {
-      console.log()
-
-      this.balance()
-      return val
-    },
-  },
-  methods: {
-    fillContainer: function () {
-      if (this.loca)
-      this.localLevel += this.fillStep
-      this.$emit('fill', this.fillStep)
-    },
-    balance: _.throttle(function () {
-      const calculate = () => {
-        setTimeout(() => {
-          if (this.expected_water_level > this.localLevel) {
-            this.localLevel += 1
-            calculate()
-
-          } else if (this.expected_water_level < this.localLevel) {
-            this.localLevel -= 1
-            calculate()
-          }
-        }, 120)
+  props: ['tank'],
+  computed: {
+    heightStyle: function () {
+      return {
+        height: this.height
       }
-
-      calculate()
-
-      return this.localLevel
-    }, 100)
+    },
+    height: function () {
+      return this.tank.fluidPercentage()
+    }
+  }, methods: {
+    fill: function () {
+      console.log('Filling from vue')
+      this.tank.pour()
+    }
   }
 })
+
+const tank = new Tank()
+tank.name = '1'
+const tank1 = new Tank()
+tank1.name = '2'
 
 const liquid = new Vue({
   el: '#app',
   data: {
-    containers: [{}, {}],
+    containers: [tank, tank1],
     fillStep: 5,
     realAverageWaterLevel: 0
   },

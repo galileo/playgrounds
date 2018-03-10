@@ -46,20 +46,25 @@
         <button v-on:click="removeContainer">Reomve container</button>
     </div>
     <water-container
-            v-for="(container, index) in containers"
+            v-for="(tank, index) in containers"
             v-bind:key="index"
             v-bind:number="index"
+            v-bind:tank="tank"
             v-bind:expected_water_level="averageWaterLevel"
             v-bind:pipe="isNotLastContainer(index)"
             v-on:fill="fillWater"
 
     >
     </water-container>
-    <button v-on:click="fillWater(20)"></button>
+    <pipe
+            v-bind:left="tank"
+            v-bind:right="tank1"
+            v-bind:set_left="tank.setLiquidLevel"
+            v-bind:set_right="tank1.setLiquidLevel"
+    >
+        kamil
+    </pipe>
 
-    averages
-{{averageWaterLevel}}
-{{realAverageWaterLevel}}
 
 </div>
 <script src="js/liquid.js"></script>
