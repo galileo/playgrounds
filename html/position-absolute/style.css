@@ -1,0 +1,11 @@
+.main {
+    position: relative;
+}
+
+.context-menu {
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+    background: yellow;
+    width: 100px;
+}

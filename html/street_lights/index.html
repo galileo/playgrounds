@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="lights">
+      <div class="light red"></div>
+      <div class="light orange"></div>
+      <div class="light green"></div>
+    </div>
+  </body>
+
+<script>
+  const globalStates = ['stop', 'prepare', 'go', 'hold'].reverse()
+  const lights = Array.from(document.getElementsByClassName('light'))
+
+  let canceled = false
+
+  const setState = function (state) {
+    console.log('setting state', state)
+    switch (state) {
+      case 'stop':
+        lights[0].classList.add('active')
+        lights[1].classList.remove('active')
+        lights[2].classList.remove('active')
+        break
+      case 'hold':
+        lights[0].classList.remove('active')
+        lights[1].classList.add('active')
+        lights[2].classList.remove('active')
+        break
+      case 'prepare':
+        lights[0].classList.add('active')
+        lights[1].classList.add('active')
+        lights[2].classList.remove('active')
+        break
+      case 'go':
+        lights[0].classList.remove('active')
+        lights[1].classList.remove('active')
+        lights[2].classList.add('active')
+        break
+      default:
+        lights[0].classList.add('active')
+        lights[1].classList.remove('active')
+        lights[2].classList.remove('active')
+    }
+  }
+
+  const stop = () => {
+    canceled = true
+  }
+
+  const start = () => {
+    canceled = false
+    runLights([])
+  }
+
+  var runLights = function (states, callback) {
+    const light = () => {
+
+      if (canceled)  {
+        return
+      }
+
+      const state = states.pop()
+
+      setState(state)
+
+      if (states.length === 0) {
+        return runLights([...globalStates])
+      }
+
+      setTimeout(light, 1000)
+    }
+    setTimeout(light, 1000)
+  }
+
+
+
+</script>
+</html>

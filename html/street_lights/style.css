@@ -1,0 +1,35 @@
+.lights {
+  padding: 0.05em;
+  border: 0.2em solid black;
+}
+
+.lights .light {
+  border-radius: 50%;
+  height: 8.6em;
+  border: 0.2em solid black;
+  margin: 0.2em;
+}
+
+.light.red {
+  border-color: red;
+}
+
+.red.active, .red:hover {
+  background: red;
+}
+
+.light.orange {
+  border-color: orange;
+}
+
+.orange.active, .orange:hover {
+  background: orange;
+}
+
+.light.green {
+  border-color: green;
+}
+
+.green.active, .green:hover {
+  background: green;
+}
