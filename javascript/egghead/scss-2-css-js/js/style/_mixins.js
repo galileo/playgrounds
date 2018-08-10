@@ -7,8 +7,9 @@ export const buttonSize = ({paddingTop, paddingRight = '', paddingBottom = '', p
     'padding': `${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft}`,
 })
 
-export const boxShadow = (...shadows) => ({
-    '-mox-box-shadow': shadows,
-    '-webkit-box-shadow': shadows,
-    'box-shadow': shadows,
-})
+
+export const boxShadow = (...shadows) => `
+    -mox-box-shadow': ${shadows};
+    -webkit-box-shadow: ${shadows};
+    box-shadow: ${shadows};
+`
