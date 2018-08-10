@@ -1,0 +1,11 @@
+{
+  "name": "scss-2-css-js",
+  "version": "1.0.0",
+  "description": "Playground for scss to css",
+  "main": "index.js",
+  "author": "Kamil Ronewicz <galileox@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "parcel-bundler": "^1.9.7"
+  }
+}
