@@ -6,3 +6,9 @@ color: ${color};
 padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
 font-family: Verdana;
 `
+
+export const boxShadow = (...shadows) => `
+-mox-box-shadow: ${shadows};
+-webkit-box-shadow: ${shadows};
+box-shadow: ${shadows};
+`
