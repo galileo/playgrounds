@@ -8,4 +8,8 @@ export default `
     border-radius: ${borderRadius};
     background: ${backgroundColor};
 }
+
+.btn-default {
+    ${buttonSize()};
+}
 `;
