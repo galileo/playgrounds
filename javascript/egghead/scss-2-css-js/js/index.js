@@ -1,20 +1,29 @@
 import styles from './style/main'
 // import buttonSizes from './style/_button-sizes'
 
-const cssToString = (css) => {
-    let result = '';
+let counter = 0;
 
-    for (const selector in css) {
-        result += selector + ' {';
-        for (const property in css[selector]) {
-            result += property + ':' + css[selector][property] + ';';
+const cssToString = (css) => {
+    const classes = {};
+    let cssString = '';
+
+    for (const name in css) {
+        classes[name] = name + '-' + counter++;
+        const selector = '.' + classes[name];
+        cssString += selector + ' {';
+        for (const property in css[name]) {
+            cssString += property + ':' + css[name][property] + ';';
         }
-        result += '}';
+        cssString += '}';
     }
 
-    return result;
+    document.head.appendChild(
+        document.createElement('style')
+    ).textContent = cssString;
+
+    return classes;
 }
 
-document.head.appendChild(
-    document.createElement('style')
-).textContent = cssToString(styles);
+const classes = cssToString(styles);
+
+document.body.innerHTML = `<div class="${classes.btn}">Click me!</div>`
