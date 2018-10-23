@@ -1,6 +1,6 @@
 ---
 path: "/dynamiczne-zmienne-js"
-data: "2018-10-23"
+data: "2018-04-23"
 title: "Dynamieczne zmienne JS"
 tags: ['PHP', 'JavaScript']
 excerpt: "I decide to came back with my blog journey. We will togheter gain new knowledge and learn new things"
