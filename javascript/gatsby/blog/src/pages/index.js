@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from 'gatsby'
+import { graphql, Link} from 'gatsby'
 import Header from '../components/Header'
 
 const Layout = ({data: {allMarkdownRemark: {edges}}}) => {
@@ -12,7 +12,11 @@ const Layout = ({data: {allMarkdownRemark: {edges}}}) => {
 				alignItems: 'center',
 				fontFamily: 'avenir'
 			}}>
-			{edges.map(({node: {frontmatter: { title, path }}}) => <div key={path}>{title}</div>)}
+			{edges.map(({node: {frontmatter: { title, path }}}) => <div key={path}>
+				<Link to={path}>
+				{title}
+				</Link>
+				</div>)}
 			</div>
 		</div>
 	)
@@ -37,5 +41,6 @@ export const query = graphql`
 			}
 		}
 	}
-` 
+`
+
 export default Layout
