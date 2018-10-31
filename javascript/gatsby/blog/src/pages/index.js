@@ -26,7 +26,7 @@ export const query = graphql`
 	query HomepageQuery {
 		allMarkdownRemark (
 			sort:{
-				fields: frontmatter___data 
+				fields: frontmatter___date
 				order: DESC
 			}
 		) {
@@ -35,7 +35,7 @@ export const query = graphql`
 					frontmatter {
 						title
 						path
-						data
+						date
 					}
 				}
 			}

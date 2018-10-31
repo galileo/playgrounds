@@ -10,7 +10,7 @@ const HomepagePostLists = () => (<StaticQuery
 						frontmatter {
 							title
 							path
-							data
+							date
 							excerpt
 						}
 					}
