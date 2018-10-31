@@ -16,7 +16,12 @@ const Layout = ({data: {allMarkdownRemark: {edges}}}) => {
 				<Link to={path}>
 				{title}
 				</Link>
-				</div>)}
+				</div>
+			)}
+
+			<div>
+				<Link to={'/tags'}>Browse by tag</Link>
+			</div>
 			</div>
 		</div>
 	)

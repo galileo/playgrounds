@@ -1,5 +1,48 @@
 const path = require('path')
 
+const createTagsPages = (createPage, posts) => {
+  const allTagsIndexTemplate = path.resolve('src/templates/allTagsIndex.js')
+  const singleTagsIndexTemplate = path.resolve('src/templates/singleTagIndex.js')
+
+  const postsByTag = {}
+
+  posts.forEach(({node}) => {
+    if (node.frontmatter.tags) {
+      node.frontmatter.tags.forEach(tag => {
+        if (!postsByTag[tag]) {
+          postsByTag[tag] = []
+        }
+
+        postsByTag[tag].push(node)
+      })
+    }
+  })
+
+  const tags = Object.keys(postsByTag)
+
+  createPage({
+    path: '/tags',
+    component: allTagsIndexTemplate,
+    context: {
+      tags: tags.sort(),
+      postsByTag
+    }
+  })
+
+  tags.forEach(tag => {
+    const tagPosts = postsByTag[tag]
+
+    createPage({
+      path: `/tags/${tag}`,
+      component: singleTagsIndexTemplate,
+      context: {
+        tag: tag,
+        posts: tagPosts
+      }
+    })
+  })
+}
+
 exports.createPages = (({graphql, actions}) => {
   const {createPage} = actions
 
@@ -17,6 +60,8 @@ exports.createPages = (({graphql, actions}) => {
               node {
                 frontmatter {
                   path
+                  title
+                  tags
                 }
               }
             }
@@ -25,6 +70,8 @@ exports.createPages = (({graphql, actions}) => {
         `
       ).then(res => {
         const posts = res.data.allMarkdownRemark.edges;
+
+        createTagsPages(createPage, posts)
 
         posts.forEach(({node}, index) => {
           const path = node.frontmatter.path
