@@ -1,0 +1,1 @@
+{"/app/index.js":{"size":18,"mtime":1542176679406,"results":{"filePath":"/app/index.js","messages":[{"ruleId":null,"fatal":true,"severity":2,"message":"Parsing error: Unexpected token x","line":1,"column":5}],"errorCount":1,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},"hashOfConfig":"19djhlv"}}
